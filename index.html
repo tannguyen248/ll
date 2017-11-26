@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="initial-scale=1.0">
+		<title>jQuery UI Draggable - Default functionality</title>
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<style>
+			.layout {
+				display: flex;
+				justify-content: space-between;
+				-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+				box-sizing: border-box;
+				height: 90vh;
+			}
+			
+			.images {
+				display: flex;
+				justify-content: space-around;
+				flex-flow: column wrap;
+				-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+				box-sizing: border-box;
+			}
+
+			.drop-place {
+				max-width: 40%;
+				max-height: 80%;
+				position: relative;
+				right: 5%;
+			}
+			
+			.image {
+				height: 150px;
+				position: relative;
+				z-index: 1;
+			}
+			
+			#draggable {
+				border: 1px solid black;
+				width: 200px;
+				position: absolute;
+				z-index: 1;
+				top: 20%;
+				left: 20%;
+			}
+			
+			#groomAndBride {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				z-index: 11;
+				transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+			}
+			
+			#background {
+				background-color: #7f7f7f;
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				opacity: .75;
+				z-index: 5;
+			}
+			
+			@-webkit-keyframes rotate360 {
+				0% { -webkit-transform: rotate(-10deg); }
+				25% { -webkit-transform: rotate(0deg); }
+				50% { -webkit-transform: rotate(10deg); }
+				75% { -webkit-transform: rotate(0deg); }
+				100% { -webkit-transform: rotate(-10deg); }
+			}
+			 
+			@-moz-keyframes rotate360 {
+				0% { -moz-transform: rotate(-5deg); }
+				25% { -moz-transform: rotate(0deg); }
+				50% { -moz-transform: rotate(5deg); }
+				75% { -moz-transform: rotate(0deg); }
+				100% { -moz-transform: rotate(-5deg); }
+			}
+			 
+			@-ms-keyframes rotate360 {
+				0% { -ms-transform: rotate(-5deg); }
+				25% { -ms-transform: rotate(0deg); }
+				50% { -ms-transform: rotate(5deg); }
+				75% { -ms-transform: rotate(0deg); }
+				100% { -ms-transform: rotate(-5deg); }
+			}
+			 
+			@-o-keyframes rotate360 {
+				0% { -o-transform: rotate(-5deg); }
+				25% { -o-transform: rotate(0deg); }
+				50% { -o-transform: rotate(5deg); }
+				75% { -o-transform: rotate(0deg); }
+				100% { -o-transform: rotate(-5deg); }
+			}
+			 
+			@keyframes rotate360 {
+				0% { transform: rotate(-5deg); }
+				25% { transform: rotate(0deg); }
+				50% { transform: rotate(5deg); }
+				75% { transform: rotate(0deg); }
+				100% { transform: rotate(-5deg); }
+			}
+			 
+			.rotate360 {
+				-webkit-animation-name: rotate360;
+				-moz-animation-name: rotate360;
+				-ms-animation-name: rotate360;
+				-o-animation-name: rotate360;
+				animation-name: rotate360;
+			 
+				-webkit-animation-duration: 4s;
+				-moz-animation-duration: 4s;
+				-ms-animation-duration: 4s;
+				-o-animation-duration: 4s;
+				animation-duration: 4s;
+				animation-delay: -2s;
+				animation-iteration-count: infinite;
+			}
+			
+			.full-heart {
+				max-width: 90%;
+				max-height: 80%;
+				position: fixed;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				-webkit-transform: translate(-50%, -50%);
+				-moz-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				-o-transform: translate(-50%, -50%);
+				z-index: 9;
+			}
+						
+			@media screen and (min-width: 320px) and (max-width: 564px){
+				.image {
+					height: 75px;
+				}
+				
+				#draggable {
+					width: 100px;
+				}
+				
+				.drop-place {
+					max-height: 60%;
+				}
+				
+				.full-heart  {
+					left: 5%;
+				}
+			}
+		</style>
+		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
+		<script>
+			function touchHandler(event)
+			{
+				var touches = event.changedTouches,
+					first = touches[0],
+					type = "";
+
+					 switch(event.type)
+				{
+					case "touchstart": type = "mousedown"; break;
+					case "touchmove":  type="mousemove"; break;        
+					case "touchend":   type="mouseup"; break;
+					default: return;
+				}
+
+				// initMouseEvent(type, canBubble, cancelable, view, clickCount,
+				//                screenX, screenY, clientX, clientY, ctrlKey,
+				//                altKey, shiftKey, metaKey, button, relatedTarget);
+
+				var simulatedEvent = document.createEvent("MouseEvent");
+				simulatedEvent.initMouseEvent(type, true, true, window, 1,
+										  first.screenX, first.screenY,
+										  first.clientX, first.clientY, false,
+										  false, false, false, 0/*left*/, null);
+
+				first.target.dispatchEvent(simulatedEvent);
+				event.preventDefault();
+			}
+
+			function init()
+			{
+				document.addEventListener("touchstart", touchHandler, true);
+				document.addEventListener("touchmove", touchHandler, true);
+				document.addEventListener("touchend", touchHandler, true);
+				document.addEventListener("touchcancel", touchHandler, true);    
+			}
+		
+		</script>
+		
+	</head>
+	<body>
+		<div id="background"></div>
+		<div class="layout">
+			<div class="images">
+				<img style="position: absolute; left: 40%; top: 50%" class="image" src="http://images.kienthuc.net.vn/uploaded/hathihang/2015_05_29/chi%20pu/chi-pu-lam-mc-buoc-nhay-hoan-vu-nhi-2015.jpg" />
+				<img style="position: absolute; left: 10%; top: 55%" class="image" src="http://cms.kienthuc.net.vn/uploaded/ctvgiaitri/2015_07_18/ngoc%20trinh/ngoc-trinh-elly-tran-trong-nuoc-che-bai-nuoc-ngoai-khen-ngoi-hinh-2.jpg" />
+				<img style="position: absolute; left: 5%; top: 5%" class="image" src="http://images.kienthuc.net.vn/zoom/500/uploaded/dinhcuc/2017_08_17/face/hot-face-sao-viet-24h-tang-thanh-ha-khoe-anh-rang-ngoi-ben-chong-hinh-5.jpg" />
+			</div>
+			<img id="draggable" class="image" src="https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.0-9/15338711_1345985135414514_8987506279995561946_n.jpg?oh=17c56780340e3a5cbacb69fb12226a22&oe=5A9D19C7" />
+			<img id="droppable" class="drop-place" src="https://lh6.googleusercontent.com/IjvxkTBV2pfOXxeSqxTmBz1W7Fn5bEM8kpvxH1NEFAmJ_2U07XUMa-1qs_bJUo2GvEScjsEwjif4haiZEhRo=w1960-h3478-rw" />
+		</div>
+		
+		<img id="groomAndBride" src="http://northdownhousemargate.com/wp-content/uploads/2017/05/kiss-Northdown-House-Margate.gif" />
+		<iframe id="music" width="100%" height="20px" scrolling="no" frameborder="no" src=""></iframe>
+		
+		<script>
+			$(function() {
+				// INIT
+				init();
+				$('#groomAndBride').hide();
+				$('#background').hide();
+				
+				// RUN
+				$(".image").draggable({ revert: "valid" });
+				$("#draggable").draggable({revert: "invalid"});
+				$( "#droppable" ).droppable({
+					drop: function(event, ui) {
+						if (ui.draggable.prop('id') === 'draggable') {
+							$(this)
+								.addClass( "rotate360 full-heart" )
+								.find( "p" )
+								.html( "Dropped!" );
+							
+							$('#music').attr('src', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/335518295&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true');
+							$('#groomAndBride').show();
+							$('#background').show();
+							$('.image').hide();
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>
