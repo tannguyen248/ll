@@ -4,8 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<meta name="viewport" content="initial-scale=1.0">
-		<title>jQuery UI Draggable - Default functionality</title>
+		<title>T <3 L </title>
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		
 		<style>
 			.layout {
 				display: flex;
@@ -36,6 +38,10 @@
 				height: 150px;
 				position: relative;
 				z-index: 1;
+			}
+
+			.hidden-on-mobile {
+				display: block;
 			}
 			
 			#draggable {
@@ -146,6 +152,10 @@
 					height: 75px;
 				}
 				
+				.hidden-on-mobile {
+					display: none;
+				}
+
 				#draggable {
 					width: 100px;
 				}
@@ -153,6 +163,7 @@
 				.drop-place {
 					max-height: 60%;
 				}
+				
 				
 				.full-heart  {
 					left: 5%;
@@ -199,18 +210,17 @@
 			}
 		
 		</script>
-		
 	</head>
 	<body>
 		<div id="background"></div>
 		<div class="layout">
 			<div class="images">
-				<img style="position: absolute; left: 40%; top: 50%" class="image" src="http://images.kienthuc.net.vn/uploaded/hathihang/2015_05_29/chi%20pu/chi-pu-lam-mc-buoc-nhay-hoan-vu-nhi-2015.jpg" />
+				<img style="position: absolute; left: 40%; top: 50%" class="image hidden-on-mobile" src="http://images.kienthuc.net.vn/uploaded/hathihang/2015_05_29/chi%20pu/chi-pu-lam-mc-buoc-nhay-hoan-vu-nhi-2015.jpg" />
 				<img style="position: absolute; left: 10%; top: 55%" class="image" src="http://cms.kienthuc.net.vn/uploaded/ctvgiaitri/2015_07_18/ngoc%20trinh/ngoc-trinh-elly-tran-trong-nuoc-che-bai-nuoc-ngoai-khen-ngoi-hinh-2.jpg" />
-				<img style="position: absolute; left: 5%; top: 5%" class="image" src="http://images.kienthuc.net.vn/zoom/500/uploaded/dinhcuc/2017_08_17/face/hot-face-sao-viet-24h-tang-thanh-ha-khoe-anh-rang-ngoi-ben-chong-hinh-5.jpg" />
+				<img style="position: absolute; left: 5%; top: 5%" class="image visible-md-block" src="http://images.kienthuc.net.vn/zoom/500/uploaded/dinhcuc/2017_08_17/face/hot-face-sao-viet-24h-tang-thanh-ha-khoe-anh-rang-ngoi-ben-chong-hinh-5.jpg" />
 			</div>
-			<img id="draggable" class="image" src="https://scontent.fsgn5-3.fna.fbcdn.net/v/t1.0-9/15338711_1345985135414514_8987506279995561946_n.jpg?oh=17c56780340e3a5cbacb69fb12226a22&oe=5A9D19C7" />
-			<img id="droppable" class="drop-place" src="https://lh6.googleusercontent.com/IjvxkTBV2pfOXxeSqxTmBz1W7Fn5bEM8kpvxH1NEFAmJ_2U07XUMa-1qs_bJUo2GvEScjsEwjif4haiZEhRo=w1960-h3478-rw" />
+			<img id="draggable" class="image" src="https://scontent.fsgn5-2.fna.fbcdn.net/v/t1.0-9/52840325_2311629298850088_6281496288668155904_n.jpg?_nc_cat=105&_nc_oc=AQls-obx-njkx5EZoJU0dR9IfQyzUhevub2KQJCyKW1R5zpk6faVyWzTS9zegcfj4Tg&_nc_ht=scontent.fsgn5-2.fna&oh=9bfc8d8d41452e52be6c9ef11a6a3945&oe=5CF2D5C8" />
+			<img id="droppable" class="drop-place" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png" />
 		</div>
 		
 		<img id="groomAndBride" src="http://northdownhousemargate.com/wp-content/uploads/2017/05/kiss-Northdown-House-Margate.gif" />
