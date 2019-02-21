@@ -2,13 +2,15 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<meta name="viewport" content="initial-scale=1.0">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>T <3 L </title>
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 		
 		<style>
+			.hidden {
+				display: none;
+			}
+
 			.layout {
 				display: flex;
 				justify-content: space-between;
@@ -16,6 +18,8 @@
 				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 				box-sizing: border-box;
 				height: 90vh;
+				flex-direction: row;
+				
 			}
 			
 			.images {
@@ -25,6 +29,7 @@
 				-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 				-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 				box-sizing: border-box;
+				width: 70%;
 			}
 
 			.drop-place {
@@ -55,14 +60,11 @@
 			
 			#groomAndBride {
 				position: absolute;
-				top: 50%;
-				left: 50%;
+				bottom: 10%;
+				right: 10%;
 				z-index: 11;
-				transform: translate(-50%, -50%);
-				-webkit-transform: translate(-50%, -50%);
-				-moz-transform: translate(-50%, -50%);
-				-ms-transform: translate(-50%, -50%);
-				-o-transform: translate(-50%, -50%);
+				transform: translate(-10%, -10%);
+				max-height: 100%;
 			}
 			
 			#background {
@@ -76,6 +78,49 @@
 				right: 0;
 				opacity: .75;
 				z-index: 5;
+			}
+
+			.heart-place {
+				max-height: 50%;
+				width: 100%;
+			}
+
+			@media screen and (min-width: 320px) and (max-width: 768px){
+				.layout {
+					flex-direction: column;
+				}
+
+				.images {
+					height: 50%;
+				}
+
+				.image {
+					height: 75px;
+				}
+				
+				.hidden-on-mobile {
+					display: none;
+				}
+
+				#draggable {
+					width: 100px;
+				}
+				
+				.drop-place {
+					max-width: 100%;
+					max-height: 100%;
+					left: 50%;
+					transform: translateX(-50%);
+				}
+				
+				.full-heart  {
+					left: 5%;
+				}
+
+				.heart-place {
+					max-height: 50%;
+					width: 100%;
+				}
 			}
 			
 			@-webkit-keyframes rotate360 {
@@ -146,29 +191,6 @@
 				-o-transform: translate(-50%, -50%);
 				z-index: 9;
 			}
-						
-			@media screen and (min-width: 320px) and (max-width: 564px){
-				.image {
-					height: 75px;
-				}
-				
-				.hidden-on-mobile {
-					display: none;
-				}
-
-				#draggable {
-					width: 100px;
-				}
-				
-				.drop-place {
-					max-height: 60%;
-				}
-				
-				
-				.full-heart  {
-					left: 5%;
-				}
-			}
 		</style>
 		<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
@@ -211,27 +233,36 @@
 		
 		</script>
 	</head>
-	<body>
+	<body style="position: relative;">
 		<div id="background"></div>
 		<div class="layout">
 			<div class="images">
 				<img style="position: absolute; left: 40%; top: 50%" class="image hidden-on-mobile" src="http://images.kienthuc.net.vn/uploaded/hathihang/2015_05_29/chi%20pu/chi-pu-lam-mc-buoc-nhay-hoan-vu-nhi-2015.jpg" />
-				<img style="position: absolute; left: 10%; top: 55%" class="image" src="http://cms.kienthuc.net.vn/uploaded/ctvgiaitri/2015_07_18/ngoc%20trinh/ngoc-trinh-elly-tran-trong-nuoc-che-bai-nuoc-ngoai-khen-ngoi-hinh-2.jpg" />
-				<img style="position: absolute; left: 5%; top: 5%" class="image visible-md-block" src="http://images.kienthuc.net.vn/zoom/500/uploaded/dinhcuc/2017_08_17/face/hot-face-sao-viet-24h-tang-thanh-ha-khoe-anh-rang-ngoi-ben-chong-hinh-5.jpg" />
+				<img style="position: absolute; left: 10%; top: 55%" class="image hidden-on-mobile" src="http://cms.kienthuc.net.vn/uploaded/ctvgiaitri/2015_07_18/ngoc%20trinh/ngoc-trinh-elly-tran-trong-nuoc-che-bai-nuoc-ngoai-khen-ngoi-hinh-2.jpg" />
+				<img style="position: absolute; left: 5%; top: 5%" class="image" src="http://images.kienthuc.net.vn/zoom/500/uploaded/dinhcuc/2017_08_17/face/hot-face-sao-viet-24h-tang-thanh-ha-khoe-anh-rang-ngoi-ben-chong-hinh-5.jpg" />
 			</div>
 			<img id="draggable" class="image" src="https://scontent.fsgn5-2.fna.fbcdn.net/v/t1.0-9/52840325_2311629298850088_6281496288668155904_n.jpg?_nc_cat=105&_nc_oc=AQls-obx-njkx5EZoJU0dR9IfQyzUhevub2KQJCyKW1R5zpk6faVyWzTS9zegcfj4Tg&_nc_ht=scontent.fsgn5-2.fna&oh=9bfc8d8d41452e52be6c9ef11a6a3945&oe=5CF2D5C8" />
-			<img id="droppable" class="drop-place" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png" />
+			<div class="heart-place" style="position: relative;">
+				<img id="droppable" class="drop-place" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png" />
+			</div>
+			
+			<div id="scare-gif" style="height: 100px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2">
+				<img src="https://media1.tenor.com/images/67d0c257b52bbd739a9703b1c992a8d7/tenor.gif" />
+			</div>
 		</div>
 		
-		<img id="groomAndBride" src="http://northdownhousemargate.com/wp-content/uploads/2017/05/kiss-Northdown-House-Margate.gif" />
-		<iframe id="music" width="100%" height="20px" scrolling="no" frameborder="no" src=""></iframe>
+		<div  id="groomPlace" class="position: relative; width: 100%; height: 100%;">
+			<img id="groomAndBride" src="http://northdownhousemargate.com/wp-content/uploads/2017/05/kiss-Northdown-House-Margate.gif" />
+		</div>
+		<iframe style="z-index: 6" id="music" allow="autoplay" width="100%" height="20px" scrolling="no" frameborder="no" src=""></iframe>
 		
 		<script>
 			$(function() {
 				// INIT
 				init();
-				$('#groomAndBride').hide();
+				$('#groomPlace').hide();
 				$('#background').hide();
+				$('#scare-gif').hide();
 				
 				// RUN
 				$(".image").draggable({ revert: "valid" });
@@ -244,10 +275,17 @@
 								.find( "p" )
 								.html( "Dropped!" );
 							
-							$('#music').attr('src', 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/335518295&amp;color=%23ff5500&amp;auto_play=true&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true');
-							$('#groomAndBride').show();
+							$('#music').attr('src', 'https://www.nhaccuatui.com/lh/auto/phKDwwAqqEIw');
+							$('#groomPlace').show();
 							$('#background').show();
 							$('.image').hide();
+							$('#droppable').hide();
+						} else {
+							$('#scare-gif').show();
+
+							setTimeout(function () {
+								$('#scare-gif').hide();
+							}, 3000);
 						}
 					}
 				});
